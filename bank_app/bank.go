@@ -24,10 +24,22 @@ func main() {
 	} else if choice == 2 {
 		fmt.Print("Amount you want to deposit: ")
 		fmt.Scan(&amount)
+
+		if amount <= 0 {
+			fmt.Print("Please enter a valid amount!")
+			return
+		}
+
 		accbalance += amount
 		fmt.Println("Your new account balance is:", accbalance)
 	} else if choice == 3 {
 		fmt.Print("Amount you want to withdraw: ")
+
+		if amount > accbalance {
+			fmt.Print("SORRY! Insufficient balance :( ")
+			return
+		}
+
 		fmt.Scan(&amount)
 		accbalance -= amount
 		fmt.Println("New account balance:", accbalance)
