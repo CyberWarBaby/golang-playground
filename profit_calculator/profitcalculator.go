@@ -55,7 +55,7 @@ func newGetInfo(infoText string) float64 {
 	fmt.Scan(&userInput)
 
 	if userInput <= 0 {
-		fmt.Print("Invalid")
+		fmt.Print("Invalid correct")
 	}
 	return userInput
 }
