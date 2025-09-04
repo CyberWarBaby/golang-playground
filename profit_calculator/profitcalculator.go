@@ -53,6 +53,10 @@ func newGetInfo(infoText string) float64 {
 	var userInput float64
 	fmt.Print(infoText)
 	fmt.Scan(&userInput)
+
+	if userInput <= 0 {
+		fmt.Print("Invalid")
+	}
 	return userInput
 }
 
