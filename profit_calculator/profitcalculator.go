@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -28,6 +29,13 @@ func main() {
 	fmt.Println("Profit:", formattedprofit)
 	formattedRatio := fmt.Sprintf("%0.2f", ratio)
 	fmt.Println("Ratio:", formattedRatio)
+
+	storeDatabase(earningbeforetax, profit, ratio)
+}
+
+func storeDatabase (earningbeforetax, profit, ratio float64) {
+	results := fmt.Sprintf("EBT: %.1f\nProfit: %.1f\nRatio: %.3f\n", earningbeforetax, profit, ratio)
+	os.WriteFile("result.txt", []byte(results), 0644)
 }
 
 func calculation(revenue, expenses, taxRate float64) (earningbeforetax float64, profit float64, ratio float64) {
