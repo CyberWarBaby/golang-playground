@@ -1,28 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func main() {
-	var revenue float64
-	var expenses float64
-	var taxRate float64
 
 	fmt.Println("WELCOME TO MY PROFIT CALCULATION APP")
 
-	// revenue, expenses, taxRate = getuserInput()
+	revenue, err1 := newGetInfo("Revenue: ")
+	expenses, err2 := newGetInfo("Expenses: ")
+	taxRate, err3 := newGetInfo("Tax rate: ")
 
-	// fmt.Print("Kindly enter your revenue: ")
-	// fmt.Scan(&revenue)
-
-	// fmt.Print("Kindly enter your expenses: ")
-	// fmt.Scan(&expenses)
-
-	// fmt.Print("Kindly enter your Tax rate: ")
-	// fmt.Scan(&taxRate)
-
-	revenue = newGetInfo("Revenue: ")
-	expenses = newGetInfo("Expenses: ")
-	taxRate = newGetInfo("Tax rate: ")
+	if  err1 != nil || err2 != nil || err3 != nil {
+		fmt.Println(err1) //i can use any of the errors since they will all be the same
+		return
+	}
 
 	// earningbeforetax := revenue - expenses
 	// profit := earningbeforetax * (1 - (taxRate / 100))
@@ -36,34 +30,21 @@ func main() {
 	fmt.Println("Ratio:", formattedRatio)
 }
 
-// func getuserInput() (revenue float64, expenses float64, taxRate float64) {
-// 	fmt.Print("Kindly enter your revenue: ")
-// 	fmt.Scan(&revenue)
-
-// 	fmt.Print("Kindly enter your expenses: ")
-// 	fmt.Scan(&expenses)
-
-// 	fmt.Print("Kindly enter your Tax rate: ")
-// 	fmt.Scan(&taxRate)
-
-// 	return
-// }
-
-func newGetInfo(infoText string) float64 {
-	var userInput float64
-	fmt.Print(infoText)
-	fmt.Scan(&userInput)
-
-	if userInput <= 0 {
-		fmt.Print("Invalid correct")
-	}
-	return userInput
-}
-
 func calculation(revenue, expenses, taxRate float64) (earningbeforetax float64, profit float64, ratio float64) {
 	earningbeforetax = revenue - expenses
 	profit = earningbeforetax * (1 - (taxRate / 100))
 	ratio = earningbeforetax / profit
 
 	return
+}
+
+func newGetInfo(infoText string) (float64, error) {
+	var userInput float64
+	fmt.Print(infoText)
+	fmt.Scan(&userInput)
+
+	if userInput <= 0 {
+		return 0, errors.New("value must be positive")
+	}
+	return userInput, nil
 }
