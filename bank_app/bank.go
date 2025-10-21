@@ -1,49 +1,106 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
+
+const accountBalanceFile = "balance.txt"
+
+func getBalanceFromFile() float64 {
+	data, _ := os.ReadFile(accountBalanceFile)
+	balanceText := string(data)
+	balance, _ := strconv.ParseFloat(balanceText, 64)
+
+	return balance
+}
+
+func writeBalanceToFile(balance float64) {
+	balanceText := fmt.Sprint(balance)
+	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
+}
 
 func main() {
-	var balance float64 = 1000
+	var accbalance float64 = getBalanceFromFile()
 
 	fmt.Println("Welcome to GO Bank!")
-	fmt.Println("What do yo want to do?")
-	fmt.Println("1. check balance")
-	fmt.Println("2. Deposit money")
-	fmt.Println("3. Withdraw money")
-	fmt.Println("4. Exit")
+	for {
+		fmt.Println("What do yo want to do?")
+		fmt.Println("1. check balance")
+		fmt.Println("2. Deposit money")
+		fmt.Println("3. Withdraw money")
+		fmt.Println("4. Exit")
 
-	var userInput int
-	fmt.Print("Your choice: ")
-	fmt.Scan(&userInput)
+		var userInput int
+		fmt.Print("Your choice: ")
+		fmt.Scan(&userInput)
 
-	if userInput == 1 {
+		// switch userInput{
+		// case 1:
+		// 	fmt.Println(`Your balance is`, accbalance)
+		// case 2:
+		// 	fmt.Print("Deposit amount: ")
+		// 	var depositAmount float64
+		// 	fmt.Scan(&depositAmount)
 
-		fmt.Println(`Your balance is`, balance)
+		// 	if depositAmount <= 0 {
+		// 		fmt.Println("Must be greater than zero")
+		// 		// return
+		// 		continue
+		// 	}
 
-	} else if userInput == 2 {
+		// 	accbalance += depositAmount
+		// 	fmt.Println("New balance is ", balance)
 
-		fmt.Print("Deposit amount: ")
-		var depositAmount float64
+		// }
 
-		if depositAmount <= 0 {
-			fmt.Println("Must be greater than zero")
-			return
+		if userInput == 1 {
+
+			fmt.Println(`Your balance is`, accbalance)
+
+		} else if userInput == 2 {
+
+			fmt.Print("Deposit amount: ")
+			var depositAmount float64
+			fmt.Scan(&depositAmount)
+
+			if depositAmount <= 0 {
+				fmt.Println("Must be greater than zero")
+				// return
+				continue
+			}
+
+			accbalance += depositAmount
+			fmt.Println("New balance is ", accbalance)
+			writeBalanceToFile(accbalance)
+
+		} else if userInput == 3 {
+
+			fmt.Print("Withdrawal amount: ")
+			var withdrawAmount float64
+			fmt.Scan(&withdrawAmount)
+
+			if withdrawAmount <= 0 {
+				fmt.Println("Withdraw amount must be greater than zero")
+				// return
+				continue
+			}
+
+			if withdrawAmount > accbalance {
+				fmt.Println("Insufficient funds(You can't withdraw more than acc bal.)")
+				// return
+				continue
+			}
+
+			accbalance -= withdrawAmount
+			fmt.Println("New balance is ", accbalance)
+			writeBalanceToFile(accbalance)
+
+		} else {
+			println("bye")
+			// return is one way to do it but break is better
+			break
 		}
-
-		fmt.Scan(&depositAmount)
-		balance += depositAmount
-		fmt.Println("New balance is ", balance)
-
-	} else if userInput == 3 {
-
-		fmt.Print("Withdrawal amount: ")
-		var withdrawAmount float64
-		fmt.Scan(&withdrawAmount)
-		balance -= withdrawAmount
-		fmt.Println("New balance is ", balance)
-
-	} else {
-		println("bye")
 	}
-
 }
