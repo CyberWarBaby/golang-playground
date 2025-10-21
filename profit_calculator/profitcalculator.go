@@ -10,15 +10,15 @@ func main() {
 
 	// fmt.Print("Input Revenue: ")
 	// fmt.Scan(&revenue)
-	revenue = inputUser("Input Revenue: ")
+	revenue = userInput("Input Revenue: ")
 
 	// fmt.Print("Input Expenses: ")
 	// fmt.Scan(&expenses)
-	expenses = inputUser("Input Expenses: ")
+	expenses = userInput("Input Expenses: ")
 
 	// fmt.Print("Input Tax rate: ")
 	// fmt.Scan(&taxRate)
-	taxRate = inputUser("Input Tax rate: ")
+	taxRate = userInput("Input Tax rate: ")
 
 	ebt, profit, ratio := theCalculations(revenue, expenses, taxRate)
 	// ebt := revenue - expenses
@@ -31,12 +31,12 @@ func main() {
 	fmt.Println("Ratio:", ratio)
 }
 
-func inputUser(text string) float64 {
-	var userIput float64
+func userInput(text string) float64 {
+	var userInputInfo float64
 	fmt.Print(text)
-	fmt.Scan(&userIput)
+	fmt.Scan(&userInputInfo)
 
-	return userIput
+	return userInputInfo
 }
 
 func theCalculations(revenue, expenses, taxRate float64) (ebt float64, profit float64, ratio float64) {
