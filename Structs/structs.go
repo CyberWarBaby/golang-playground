@@ -1,56 +1,28 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"time"
+
+	"example.com/structs/user"
 )
 
-type User struct {
-	firstName string
-	lastName  string
-	birthDate string
-	age       int
-	createdAt time.Time
-}
-
-func (u *User) outputUserDetails() { //reciever argument
-	fmt.Println(u.firstName, u.lastName, u.birthDate)
-}
-
-func (u *User) clearUserName() {
-	u.firstName = ""
-	u.lastName = ""
-}
-
-func newUser(firstName, lastName, birthDate string) (*User, error) {
-	if firstName == "" || lastName == "" || birthDate == "" {
-		return nil, errors.New("----'first name, last name and birthdate required'----")
-	}
-	return &User{
-		firstName: firstName,
-		lastName:  lastName,
-		birthDate: birthDate,
-		createdAt: time.Now(),
-	}, nil
-}
 func main() {
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	var appUser *User
+	var appUser *user.User
 
-	appUser, err := newUser(userFirstName, userLastName, userBirthdate) // ... do something awesome with that gathered data!
+	appUser, err := user.NewUser(userFirstName, userLastName, userBirthdate) // ... do something awesome with that gathered data!
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	appUser.outputUserDetails()
-	appUser.clearUserName()
-	appUser.outputUserDetails()
+	appUser.OutputUserDetails()
+	appUser.ClearUserName()
+	appUser.OutputUserDetails()
 }
 
 // func outputUserDetails(u *User) {
