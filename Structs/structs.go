@@ -13,12 +13,18 @@ func main() {
 
 	var appUser *user.User
 
-	appUser, err := user.NewUser(userFirstName, userLastName, userBirthdate) // ... do something awesome with that gathered data!
+	// appUser, err := user.NewUser(userFirstName, userLastName, userBirthdate) // ... do something awesome with that gathered data!
+	appUser, err := user.New(userFirstName, userLastName, userBirthdate) // ... do something awesome with that gathered data!
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
+	admin := user.NewAdmin("test@adekunle.com", "nil")
+	admin.OutputUserDetails()
+	admin.ClearUserName()
+	admin.OutputUserDetails()
 
 	appUser.OutputUserDetails()
 	appUser.ClearUserName()
