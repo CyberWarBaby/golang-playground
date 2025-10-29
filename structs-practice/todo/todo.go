@@ -11,7 +11,7 @@ type Todo struct {
 	Text string `json:"text"`
 }
 
-func (todo Todo) DisplayNotes() {
+func (todo Todo) Display() {
 	fmt.Println(todo.Text)
 }
 
