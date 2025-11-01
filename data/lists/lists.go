@@ -1,4 +1,4 @@
-package main
+package lists
 
 import "fmt"
 
@@ -27,10 +27,9 @@ import "fmt"
 // }
 
 type Product struct {
-	title    string
-	id       int
-	price    float64
-	products []string
+	title string
+	id    int
+	price float64
 }
 
 func main() {
@@ -64,10 +63,25 @@ func main() {
 	courseGoals = append(courseGoals, "Become a gde Go and global talent")
 	fmt.Println(courseGoals)
 
-	p := Product{}
-	products := p.products
-	products = []string{"lacasera", "ice cream"}
-	products = append(products, "Apple juice")
+	products := []Product{
+		{
+			"first-product",
+			123,
+			1.78},
+		{
+			"second-product",
+			123,
+			1.88},
+	}
 
+	newProduct := Product{
+		"third-product",
+		123,
+		1.88,
+	}
+
+	fmt.Println(products)
+
+	products = append(products, newProduct)
 	fmt.Println(products)
 }
